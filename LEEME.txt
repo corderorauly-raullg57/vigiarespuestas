@@ -1,0 +1,68 @@
+VIGÍA DE RESPUESTAS  ·  HiSpaNet
+App Android que te avisa cuando un número de tu lista te escribe
+por WhatsApp o por SMS, y lleva el historial por día, semana y mes.
+
+=====================================================================
+1) CONVERTIR ESTE PROYECTO EN APK (gratis, en la nube de GitHub)
+=====================================================================
+No necesitas Android Studio. GitHub lo compila por ti.
+
+ a. Entra en https://github.com y crea una cuenta (o usa la tuya).
+ b. Arriba a la derecha: "+"  ->  "New repository".
+    Nombre: VigiaRespuestas   ·  marca "Public"  ·  "Create repository".
+ c. En la página del repositorio nuevo pulsa "uploading an existing file".
+ d. Descomprime el ZIP en tu PC y ARRASTRA el CONTENIDO de la carpeta
+    VigiaRespuestas (las carpetas app, .github y los archivos sueltos)
+    a la página. Pulsa "Commit changes".
+    IMPORTANTE: la carpeta ".github" está oculta en Windows. Si no la ves:
+    Explorador -> Vista -> Mostrar -> "Elementos ocultos".
+    Si no se sube, créala a mano: "Add file" -> "Create new file" y escribe
+    como nombre:  .github/workflows/compilar-apk.yml   y pega su contenido.
+ e. Pestaña "Actions". Verás "Compilar APK" girando (tarda 3-6 min).
+    Si te pide activar Actions, pulsa el botón verde para permitirlo.
+ f. Cuando salga el círculo verde ✔, ve a la página principal del
+    repositorio -> a la derecha "Releases" -> descarga VigiaRespuestas.apk
+    (pesa poco, menos de 1 MB).
+ g. Pasa el APK al móvil e instálalo. Android avisará "origen desconocido":
+    permítelo. Si Play Protect avisa, "Instalar de todas formas".
+
+Si algo sale en rojo en Actions: abre el fallo, copia el texto del error
+y pásaselo a Claude.
+
+=====================================================================
+2) PRIMERA VEZ EN EL MÓVIL (3 pasos, la app te los muestra)
+=====================================================================
+ 1. Acceso a notificaciones -> activar "Vigía de Respuestas".
+    (Android 13+: si sale "ajuste restringido", ve a Ajustes -> Apps ->
+     Vigía de Respuestas -> menú ⋮ arriba -> "Permitir ajustes
+     restringidos", y repite.)
+ 2. Dar permisos -> SMS, Contactos y Notificaciones: Permitir.
+ 3. Batería -> "No optimizar" (para que Android no la cierre).
+    En Xiaomi/Redmi activa además "Inicio automático" para la app.
+Pulsa "Probar aviso" en Ajustes para oír cómo suena.
+
+=====================================================================
+3) USO DIARIO
+=====================================================================
+ - Números: pega los números a los que escribes (uno por línea, con o
+   sin nombre). Ej:  55081288   ó   María Tienda, +53 5 508 1288
+ - Atender: aquí salen los que te respondieron. "Abrir chat" te lleva a
+   WhatsApp/SMS; "✓ Atendido" lo quita de la lista.
+ - Historial: Día / Semana / Mes, con flechas para ver periodos
+   anteriores y exportar a CSV (se guarda en Descargas).
+
+Qué ignora a propósito: grupos de WhatsApp, llamadas, tus propios
+mensajes, números que no están en tu lista y mensajes repetidos.
+
+Límite: si tienes el chat de WhatsApp abierto cuando llega el mensaje,
+WhatsApp no muestra notificación y la app no puede verlo.
+
+=====================================================================
+ARCHIVOS DEL PROYECTO
+=====================================================================
+ app/src/main/java/.../VigiaListener.java  lee las notificaciones de WhatsApp
+ app/src/main/java/.../SmsReceiver.java    recibe los SMS
+ app/src/main/java/.../Db.java             base de datos del móvil
+ app/src/main/java/.../Avisos.java         aviso con sonido, vibración y voz
+ app/src/main/assets/index.html            la pantalla de la app
+ .github/workflows/compilar-apk.yml        receta para que GitHub haga el APK
