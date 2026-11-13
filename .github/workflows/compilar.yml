@@ -20,12 +20,10 @@ jobs:
           unzip -o -q "$ZIP" -d src
           echo "PROY=$(dirname "$(find src -name settings.gradle | head -1)")" >> $GITHUB_ENV
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
-
-      - uses: android-actions/setup-android@v3
 
       - uses: gradle/actions/setup-gradle@v4
         with:
