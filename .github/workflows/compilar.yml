@@ -1,0 +1,49 @@
+name: Compilar APK
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Descomprimir el proyecto
+        run: |
+          ZIP="$(ls *.zip | head -1)"
+          echo "Usando: $ZIP"
+          unzip -o -q "$ZIP" -d src
+          echo "PROY=$(dirname "$(find src -name settings.gradle | head -1)")" >> $GITHUB_ENV
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Compilar
+        run: cd "$PROY" && gradle assembleDebug --no-daemon
+
+      - name: Renombrar APK
+        run: cp "$PROY/app/build/outputs/apk/debug/app-debug.apk" VigiaRespuestas.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VigiaRespuestas-apk
+          path: VigiaRespuestas.apk
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Vigia de Respuestas (compilacion ${{ github.run_number }})
+          files: VigiaRespuestas.apk
